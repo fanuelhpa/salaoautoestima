@@ -1,29 +1,31 @@
 package com.fandev.salaoautoestima.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fandev.salaoautoestima.domain.Estado;
+import com.fandev.salaoautoestima.services.EstadoService;
+
+//Objeto que envia a resposta http à alguma aplicação que fez a requisição.
+//Ele delega ao serviço o que deve ser feito dependendo da requisição.
+//O serviço por sua vez acesso o repository, que devolve o que deve ser 
+//enviado para a aplicação por este objeto.
 
 @RestController
 @RequestMapping(value="/estados")
 public class EstadoResource {
+	
+	@Autowired
+	private EstadoService service;
 
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Estado> listar() {
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
-		Estado estado1 = new Estado(1, "Minas Gerais");
-		Estado estado2 = new Estado(2, "Bahia");
-		
-		List<Estado> lista = new ArrayList<>();
-		lista.add(estado1);
-		lista.add(estado2);
-		
-		return lista;
-		
+		Estado obj = service.buscar(id);
+		return ResponseEntity.ok().body(obj);	
 	}	
 }
