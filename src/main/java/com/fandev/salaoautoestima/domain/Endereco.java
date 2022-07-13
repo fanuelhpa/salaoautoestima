@@ -1,6 +1,8 @@
 package com.fandev.salaoautoestima.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -28,16 +31,15 @@ public class Endereco implements Serializable{
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
-	@ManyToOne
-	@JoinColumn(name="usuario_id")
-	private Usuario usuario;
+	@ManyToMany(mappedBy = "enderecos")
+	private List<Usuario> usuarios = new ArrayList<>();
 	
 	public Endereco() {
 		
 	}
 
 	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
-			Cidade cidade, Usuario usuario) {
+			Cidade cidade) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -46,7 +48,6 @@ public class Endereco implements Serializable{
 		this.bairro = bairro;
 		this.cep = cep;
 		this.cidade = cidade;
-		this.usuario = usuario;
 	}
 
 	public Integer getId() {
@@ -105,12 +106,12 @@ public class Endereco implements Serializable{
 		this.cidade = cidade;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public List<Usuario> usuarios() {
+		return usuarios;
 	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	@Override

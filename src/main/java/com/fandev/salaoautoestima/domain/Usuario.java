@@ -1,7 +1,9 @@
 package com.fandev.salaoautoestima.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,6 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fandev.salaoautoestima.domain.enums.TipoUsuario;
 
@@ -29,7 +35,17 @@ public class Usuario implements Serializable{
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-
+	
+	@ManyToMany
+	@JoinTable(name = "USUARIO_ENDERECO",
+		joinColumns = @JoinColumn(name = "usuario_id"),
+		inverseJoinColumns = @JoinColumn(name = "endereco_id")	
+	)
+	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@OneToMany(mappedBy="id.usuario")
+	private Set<HorarioProcedimento> horariosProcedimentos = new HashSet<>();
+	
 	public Usuario() {
 
 	}
@@ -41,6 +57,16 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 		this.email = email;
 		this.tipoUsuario = tipoUsuario;
+	}
+	
+	public List<Procedimento> getProcedimentos(){
+		
+		List<Procedimento> listaProcedimentos = new ArrayList<>();
+		for(HorarioProcedimento x : horariosProcedimentos) {
+			listaProcedimentos.add(x.getProcedimento());
+		}
+		
+		return listaProcedimentos;
 	}
 
 	public Integer getId() {
@@ -81,6 +107,30 @@ public class Usuario implements Serializable{
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+	
+	public Set<HorarioProcedimento> getHorariosProcedimentos() {
+		return horariosProcedimentos;
+	}
+
+	public void setHorariosProcedimentos(Set<HorarioProcedimento> horariosProcedimentos) {
+		this.horariosProcedimentos = horariosProcedimentos;
 	}
 
 	@Override
