@@ -13,6 +13,7 @@ import com.fandev.salaoautoestima.domain.Endereco;
 import com.fandev.salaoautoestima.domain.Estado;
 import com.fandev.salaoautoestima.domain.HorarioProcedimento;
 import com.fandev.salaoautoestima.domain.Procedimento;
+import com.fandev.salaoautoestima.domain.Produto;
 import com.fandev.salaoautoestima.domain.Usuario;
 import com.fandev.salaoautoestima.domain.enums.TipoUsuario;
 import com.fandev.salaoautoestima.repositories.CidadeRepository;
@@ -20,6 +21,7 @@ import com.fandev.salaoautoestima.repositories.EnderecoRepository;
 import com.fandev.salaoautoestima.repositories.EstadoRepository;
 import com.fandev.salaoautoestima.repositories.HorarioProcedimentoRepository;
 import com.fandev.salaoautoestima.repositories.ProcedimentoRepository;
+import com.fandev.salaoautoestima.repositories.ProdutoRepository;
 import com.fandev.salaoautoestima.repositories.UsuarioRepository;
 
 @SpringBootApplication
@@ -42,6 +44,9 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 	
 	@Autowired
 	private HorarioProcedimentoRepository horarioProcedimentoRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SalaoautoestimaApplication.class, args);
@@ -71,7 +76,7 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 		Usuario user2 = new Usuario(null,"Aline Dias", "Aline123@", "aline@gmail.com", TipoUsuario.CLIENTE);
 		Usuario user3 = new Usuario(null, "Pedro Alves", "Pedro123@", "pedro@gmail.com", TipoUsuario.CLIENTE);
 		Usuario user4 = new Usuario(null, "Marly Santos", "Marly123@", "marly@gmail.com", TipoUsuario.ADMINISTRADOR);
-		Usuario user5 = new Usuario(null,"Kesia Emanuela", "ofnmoqeokfa", "kesia@gmail.com",TipoUsuario.CLIENTE);
+		Usuario user5 = new Usuario(null,"Kesia Emanuela", "Kesia123@", "kesia@gmail.com",TipoUsuario.CLIENTE);
 		
 		user1.getTelefones().addAll(Arrays.asList("313456-2402", "3199247-6569"));
 		user2.getTelefones().addAll(Arrays.asList("313551-7660"));
@@ -120,6 +125,16 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 		procedimentoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		horarioProcedimentoRepository.saveAll(Arrays.asList(hp1, hp2, hp3, hp4, hp5));
 		
+		//Intancias de produtos
 		
+		Produto prod1 = new Produto(null, "Shampoo Hair Strong", 20.00, 5, user4);
+		Produto prod2 = new Produto(null, "Relaxante Hair-Life", 15.00, 2, user4);
+		Produto prod3 = new Produto(null, "Creme Meu Cabelo", 25.00, 7, user1);
+		
+		user1.getProdutos().addAll(Arrays.asList(prod1));
+		user4.getProdutos().addAll(Arrays.asList(prod1, prod2));
+		 
+		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+		 
 	}
 }

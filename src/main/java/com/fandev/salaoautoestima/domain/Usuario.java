@@ -43,8 +43,11 @@ public class Usuario implements Serializable{
 	)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
-	@OneToMany(mappedBy="id.usuario")
+	@OneToMany(mappedBy = "id.usuario")
 	private Set<HorarioProcedimento> horariosProcedimentos = new HashSet<>();
+	
+	@OneToMany(mappedBy = "usuario")
+	private Set<Produto> produtos = new HashSet<>();
 	
 	public Usuario() {
 
@@ -131,6 +134,14 @@ public class Usuario implements Serializable{
 
 	public void setHorariosProcedimentos(Set<HorarioProcedimento> horariosProcedimentos) {
 		this.horariosProcedimentos = horariosProcedimentos;
+	}
+
+	public Set<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Set<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	@Override
