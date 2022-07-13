@@ -106,7 +106,7 @@ public class Endereco implements Serializable{
 		this.cidade = cidade;
 	}
 
-	public List<Usuario> usuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 	

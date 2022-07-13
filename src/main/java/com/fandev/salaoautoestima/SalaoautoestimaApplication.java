@@ -94,6 +94,10 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 		user4.getEnderecos().add(en1);
 		user5.getEnderecos().add(en1);
 		
+		en1.getUsuarios().addAll(Arrays.asList(user1, user4, user5));
+		en2.getUsuarios().addAll(Arrays.asList(user3));
+		en3.getUsuarios().addAll(Arrays.asList(user1, user2));
+		
 		enderecoRepository.saveAll(Arrays.asList(en1, en2, en3));
 		usuarioRepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5));
 		
