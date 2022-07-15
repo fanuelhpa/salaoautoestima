@@ -19,6 +19,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fandev.salaoautoestima.domain.enums.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Usuario implements Serializable{
@@ -36,6 +39,7 @@ public class Usuario implements Serializable{
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonManagedReference
 	@ManyToMany
 	@JoinTable(name = "USUARIO_ENDERECO",
 		joinColumns = @JoinColumn(name = "usuario_id"),
@@ -46,6 +50,7 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "id.usuario")
 	private Set<HorarioProcedimento> horariosProcedimentos = new HashSet<>();
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "usuario")
 	private Set<Produto> produtos = new HashSet<>();
 	
@@ -62,6 +67,7 @@ public class Usuario implements Serializable{
 		this.tipoUsuario = tipoUsuario;
 	}
 	
+	@JsonIgnore
 	public List<Procedimento> getProcedimentos(){
 		
 		List<Procedimento> listaProcedimentos = new ArrayList<>();

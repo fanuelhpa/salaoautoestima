@@ -19,7 +19,10 @@ public class EstadoService {
 		
 	public Estado buscar(Integer id) {
 		
+		//busca um estado pelo id
 		Optional<Estado> obj = repo.findById(id);
+		
+		//retorna um estado. se não houver o estado referente ao id passado, retorna nulo. 
 		return obj.orElse(null);
 	}
 }

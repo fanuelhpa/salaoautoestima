@@ -12,7 +12,7 @@ import com.fandev.salaoautoestima.services.EstadoService;
 
 //Objeto que envia a resposta http à alguma aplicação que fez a requisição.
 //Ele delega ao serviço o que deve ser feito dependendo da requisição.
-//O serviço por sua vez acesso o repository, que devolve o que deve ser 
+//O serviço por sua vez acessa o repository, que devolve o que deve ser 
 //enviado para a aplicação por este objeto.
 
 @RestController //anotação que define a classe como controlador Rest

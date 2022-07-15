@@ -1,7 +1,7 @@
 package com.fandev.salaoautoestima.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -13,8 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Procedimento {
+public class Procedimento implements Serializable {
+	private static final long serialVersionUID = 1L;
 		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -22,6 +25,7 @@ public class Procedimento {
 		private String nome;
 		private Double preco;
 		
+		@JsonIgnore
 		@OneToMany(mappedBy = "id.procedimento")
 		private Set<HorarioProcedimento> horariosProcedimentos = new HashSet<>();
 		
@@ -36,6 +40,7 @@ public class Procedimento {
 			this.preco = preco;
 		}
 		
+		@JsonIgnore
 		public List<Usuario> getUsuarios(){
 			
 			List<Usuario> usuarios = new ArrayList<>();

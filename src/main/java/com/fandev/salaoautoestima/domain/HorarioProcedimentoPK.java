@@ -7,6 +7,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Embeddable //Define a classe como subtipo de HorarioProcedimento. Anotação necessaria para id composto, no JPA
 public class HorarioProcedimentoPK implements Serializable {
 	private static final long serialVersionUID = 1L;

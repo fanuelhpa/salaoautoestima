@@ -7,10 +7,13 @@ import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class HorarioProcedimento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId
 	private HorarioProcedimentoPK id = new HorarioProcedimentoPK();
 	
@@ -28,11 +31,12 @@ public class HorarioProcedimento implements Serializable{
 		this.hora = hora;
 		this.desconto = desconto;	
 	}
-
+	
 	public Procedimento getProcedimento() {
 		return id.getProcedimento();
 	}
 	
+	@JsonIgnore
 	public Usuario getUsuario() {
 		return id.getUsuario();
 	}

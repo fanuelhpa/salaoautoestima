@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -20,6 +22,7 @@ public class Estado implements Serializable{
 	private Integer id;
 	private String nome;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="estado") //anotação que define o mapeamento OneToMany (reverso em relação ao mapeamento da classe cidade). Devemos informar em qual propriedade da outra classe foi feito o mapeamentom, no caso no atributo estado.
 	private List<Cidade> cidades = new ArrayList<>();
 	
