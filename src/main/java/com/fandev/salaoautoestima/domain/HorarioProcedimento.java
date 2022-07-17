@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -17,6 +18,7 @@ public class HorarioProcedimento implements Serializable{
 	@EmbeddedId
 	private HorarioProcedimentoPK id = new HorarioProcedimentoPK();
 	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date hora;
 	private Double desconto;
 	

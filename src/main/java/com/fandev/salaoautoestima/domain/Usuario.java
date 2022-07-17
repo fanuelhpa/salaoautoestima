@@ -50,7 +50,7 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "id.usuario")
 	private Set<HorarioProcedimento> horariosProcedimentos = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private Set<Produto> produtos = new HashSet<>();
 	

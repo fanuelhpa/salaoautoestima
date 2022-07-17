@@ -104,7 +104,7 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 		//Instancias de procedimentos e horarios de procedimentos
 		
 		//Objeto SimpleDateFormat para formatação das datas
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		Procedimento p1 = new Procedimento(null, "Corte", 10.00);
 		Procedimento p2 = new Procedimento(null, "Escova", 20.00);
