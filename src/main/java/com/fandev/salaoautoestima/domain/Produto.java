@@ -28,17 +28,22 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private CategoriaProduto categoria;
+	
 	public Produto() {
 		
 	}
 
-	public Produto(Integer id, String nome, Double preco, Integer quantidade, Usuario usuario) {
+	public Produto(Integer id, String nome, Double preco, Integer quantidade, Usuario usuario, CategoriaProduto categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.usuario = usuario;
+		this.categoria = categoria;
 	}
 
 	public Integer getId() {
@@ -79,6 +84,14 @@ public class Produto implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public CategoriaProduto getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaProduto categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override

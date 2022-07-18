@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.fandev.salaoautoestima.domain.CategoriaProduto;
 import com.fandev.salaoautoestima.domain.Cidade;
 import com.fandev.salaoautoestima.domain.Endereco;
 import com.fandev.salaoautoestima.domain.Estado;
@@ -16,6 +17,7 @@ import com.fandev.salaoautoestima.domain.Procedimento;
 import com.fandev.salaoautoestima.domain.Produto;
 import com.fandev.salaoautoestima.domain.Usuario;
 import com.fandev.salaoautoestima.domain.enums.TipoUsuario;
+import com.fandev.salaoautoestima.repositories.CategoriaProdutoRepository;
 import com.fandev.salaoautoestima.repositories.CidadeRepository;
 import com.fandev.salaoautoestima.repositories.EnderecoRepository;
 import com.fandev.salaoautoestima.repositories.EstadoRepository;
@@ -47,6 +49,9 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private CategoriaProdutoRepository categoriaProdutoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SalaoautoestimaApplication.class, args);
@@ -129,16 +134,26 @@ public class SalaoautoestimaApplication implements CommandLineRunner {
 		procedimentoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		horarioProcedimentoRepository.saveAll(Arrays.asList(hp1, hp2, hp3, hp4, hp5));
 		
-		//Intancias de produtos
+		//Intancias de categorias de produtos e produtos
 		
-		Produto prod1 = new Produto(null, "Shampoo Hair Strong", 20.00, 5, user4);
-		Produto prod2 = new Produto(null, "Relaxante Hair-Life", 15.00, 2, user4);
-		Produto prod3 = new Produto(null, "Creme Meu Cabelo", 25.00, 7, user1);
+		CategoriaProduto cat1 = new CategoriaProduto(null, "Shampoos");
+		CategoriaProduto cat2 = new CategoriaProduto(null, "Cremes");
+		CategoriaProduto cat3 = new CategoriaProduto(null, "Relaxantes");
 		
+		Produto prod1 = new Produto(null, "Shampoo Hair Strong", 20.00, 5, user4, cat1);
+		Produto prod2 = new Produto(null, "Relaxante Hair-Life", 15.00, 2, user4, cat3);
+		Produto prod3 = new Produto(null, "Creme Meu Cabelo", 25.00, 7, user1, cat2);
+		Produto prod4 = new Produto(null, "Shampoo Embeleze", 30.00, 8, user1, cat1);
+		
+		cat1.getProdutos().addAll(Arrays.asList(prod1, prod4));
+		cat2.getProdutos().add(prod3);
+		cat3.getProdutos().add(prod2);
+	
 		user1.getProdutos().addAll(Arrays.asList(prod1));
 		user4.getProdutos().addAll(Arrays.asList(prod1, prod2));
 		 
-		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+		categoriaProdutoRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4));
 		 
 	}
 }
